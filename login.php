@@ -16,18 +16,14 @@ include 'koneksi.php'; ?>
     if (isset($_POST['login'])) {
         $user = trim(mysqli_real_escape_string($conn, $_POST['user']));
         $pass = sha1(trim(mysqli_real_escape_string($conn, $_POST['pass'])));
-        $sql_login = mysqli_query($conn, "SELECT * FROM user WHERE username = '$user' AND password = '$pass'")
+        $sql_login = mysqli_query($conn, "SELECT * FROM tb_user WHERE username = '$user' AND password = '$pass'")
             or die(mysqli_error($conn));
         if (mysqli_num_rows($sql_login) > 0) {
-            // session_start();
-            // $_SESSION['user'] = $user;
-            
-            
-            // // Set nilai session
-            // $_SESSION['nama'] = $user;
-            
+            session_start();
+            $_SESSION['username'] = $user;         
+            $_SESSION['password'] = $pass;
             echo "<script>window.location='" . baseurl("index.php") . "';</script>";
-            // echo "berhasil";
+            
         } else {
     ?>
             <div class="alert alert-danger" role="alert">

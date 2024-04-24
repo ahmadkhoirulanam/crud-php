@@ -1,3 +1,11 @@
+<?php
+session_start();
+if(!isset($_SESSION['username'])) {
+    header("Location: login.php"); 
+    exit(); 
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,6 +18,14 @@
 <body>
     <div class="container">
         <h2>Data Mahasiswa</h2>
+        <?php            
+            $username = $_SESSION['username'];
+            echo $username;
+        ?><br>
+        <form action="logout.php" method="post">
+            <button type="submit" class="btn btn-danger mb-3 name="logout">Logout</button>
+        </form>
+        <br>
         <a class="btn btn-success mb-3" href="tambah.php">Tambah Mahasiswa</a>
         <table class="table">
             <thead>
